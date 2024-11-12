@@ -1,12 +1,21 @@
-# Clone repository and add initial submodule
-git clone "https://github.com/user/test4.git"
-git submodule add "https://github.com/auto-testing-e/test3.git"
+# Ask for the target repository path
+$repoPath = Read-Host "Enter the local path of the target repository"
+
+# Navigate to the target repository
+Set-Location -Path $repoPath
+Write-Output "Changed directory to $repoPath"
+
+# Ask for the URL of the submodule to add
+$submoduleUrl = Read-Host "Enter the URL of the submodule to add (e.g., 'https://github.com/automsation/auto3.git')"
+
+# Add the submodule and update
+git submodule add $submoduleUrl
 git submodule update --init --recursive
 git add .  # Add submodule changes to the staging area
-git commit -m "Added submodules"  # Commit changes
+git commit -m "Added submodule: $submoduleUrl"  # Commit changes
 git push origin main  
 
-# Display menu options
+# Display menu options for submodule actions
 Write-Output "Select an action:"
 Write-Output "1. Initialize a specific submodule"
 Write-Output "2. Update a specific submodule to the latest commit"
@@ -62,4 +71,3 @@ switch ($action) {
         Write-Output "Invalid selection. Please enter a number between 1 and 7."
     }
 } # This closing brace ends the switch block
-
