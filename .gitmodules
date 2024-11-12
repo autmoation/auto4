@@ -1,0 +1,9 @@
+[submodule "auto3"]
+	path = auto3
+	url = https://github.com/autmoation/auto3.git
+[submodule "auto2"]
+	path = auto2
+	url = https://github.com/autmoation/auto2.git
+[submodule "auto1"]
+	path = auto1
+	url = https://github.com/autmoation/auto1.git
