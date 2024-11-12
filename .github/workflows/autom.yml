@@ -19,8 +19,8 @@ jobs:
 
       - name: Set up Git
         run: |
-          git config --global user.name "Jeena-reji"
-          git config --global user.email "jeenareji77@example.com"
+          git config --global user.name "GHCRUSER"
+          git config --global user.email "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"
 
       - name: Clone repository and add initial submodule
         run: |
