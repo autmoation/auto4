@@ -7,3 +7,6 @@
 [submodule "auto1"]
 	path = auto1
 	url = https://github.com/autmoation/auto1.git
+[submodule "test3"]
+	path = test3
+	url = https://github.com/auto-testing-e/test3.git
