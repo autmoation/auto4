@@ -61,4 +61,4 @@ switch ($action) {
     default {
         Write-Output "Invalid selection. Please enter a number between 1 and 7."
     }
-}
+}  # This closing brace was missing
