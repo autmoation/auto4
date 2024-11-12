@@ -4,93 +4,78 @@
 name: Submodule Management Workflow
 
 on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:  # Allows manual trigger
- # This enables manual trigger
+  workflow_dispatch:  # Trigger manually from the GitHub UI
 
 jobs:
-  submodule-management:
-    runs-on: ubuntu-latest
+  manage_submodules:
+    runs-on: ubuntu-latest  # Use a Linux runner; change to windows-latest if needed
+
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v2  # Checkout the code to the runner
 
-      - name: Set up Git
-        run: |
-          git config --global user.name "GHCRUSER"
-          git config --global user.email "jeenareji77@gmail.com"
-          git config --global url."https://x-access-token:${{ secrets.GHCRPASS }}@github.com".insteadOf "https://github.com"
+    - name: Set up Git
+      run: |
+        git config --global user.name "Your Name"
+        git config --global user.email "your-email@example.com"
+    
+    - name: Add a submodule
+      run: |
+        echo "Enter the URL of the submodule to add (e.g., 'https://github.com/automsation/auto3.git')"
+        read submoduleUrl
+        git submodule add $submoduleUrl
+        git submodule update --init --recursive
+        git add .
+        git commit -m "Added submodule: $submoduleUrl"
+        git push origin main
 
-      - name: Clone repository and add initial submodule
-        run: |
-          git clone "https://github.com/user/auto4.git"
-          git submodule add "https://github.com/automation/auto3.git"
-          git submodule update --init --recursive
-          git add .
-          git commit -m "Added submodules"
-          git push origin main
+    - name: Initialize a specific submodule
+      run: |
+        echo "Enter the path of the submodule to initialize"
+        read initializePath
+        git submodule update --init --recursive $initializePath
+        echo "$initializePath submodule has been initialized."
+    
+    - name: Update a specific submodule
+      run: |
+        echo "Enter the path of the submodule to update"
+        read updatePath
+        git submodule update --remote $updatePath
+        echo "$updatePath submodule has been updated to the latest commit."
 
-      - name: Display submodule management options
-        run: |
-          echo "Select an action:"
-          echo "1. Initialize a specific submodule"
-          echo "2. Update a specific submodule to the latest commit"
-          echo "3. Commit and push updates for a specific submodule"
-          echo "4. Sync a specific submodule's URL"
-          echo "5. Remove a specific submodule"
-          echo "6. Re-add a submodule"
-          echo "7. Exit"
-        
-      - name: Execute selected action
-        run: |
-          # Prompt for the action selection
-          read -p "Enter the number corresponding to your choice: " action
+    - name: Commit and push updates for a specific submodule
+      run: |
+        echo "Enter the path of the submodule to commit and push"
+        read commitPath
+        git add $commitPath
+        git commit -m "Update specific submodule: $commitPath"
+        git push origin main
+        echo "Updates for $commitPath submodule have been committed and pushed."
 
-          case $action in
-            "1")
-              read -p "Enter the path of the submodule to initialize: " initializePath
-              git submodule update --init --recursive $initializePath
-              echo "$initializePath submodule has been initialized."
-              ;;
-            "2")
-              read -p "Enter the path of the submodule to update: " updatePath
-              git submodule update --remote $updatePath
-              echo "$updatePath submodule has been updated to the latest commit."
-              ;;
-            "3")
-              read -p "Enter the path of the submodule to commit and push: " commitPath
-              git add $commitPath
-              git commit -m "Update specific submodule: $commitPath"
-              git push origin main
-              echo "Updates for $commitPath submodule have been committed and pushed."
-              ;;
-            "4")
-              read -p "Enter the path of the submodule to sync: " syncPath
-              git submodule sync --recursive $syncPath
-              echo "$syncPath submodule URL has been synced."
-              ;;
-            "5")
-              read -p "Enter the path of the submodule to remove: " removePath
-              git submodule deinit $removePath
-              git rm -r --cached $removePath
-              echo "$removePath submodule has been removed."
-              ;;
-            "6")
-              read -p "Enter the submodule repository URL to add (e.g., 'https://github.com/company/repo.git'): " reAddUrl
-              read -p "Enter the directory path for the submodule (e.g., 'submodules/repo1'): " reAddPath
-              git submodule add $reAddUrl $reAddPath
-              git commit -m "Re-added submodule at $reAddPath"
-              echo "Submodule added at $reAddPath."
-              ;;
-            "7")
-              echo "Exiting the script."
-              ;;
-            *)
-              echo "Invalid selection. Please enter a number between 1 and 7."
-              ;;
-          esac
+    - name: Sync a specific submodule's URL
+      run: |
+        echo "Enter the path of the submodule to sync"
+        read syncPath
+        git submodule sync --recursive $syncPath
+        echo "$syncPath submodule URL has been synced."
 
-        
-            
+    - name: Remove a specific submodule
+      run: |
+        echo "Enter the path of the submodule to remove"
+        read removePath
+        git submodule deinit $removePath
+        git rm -r --cached $removePath
+        echo "$removePath submodule has been removed."
+
+    - name: Re-add a submodule
+      run: |
+        echo "Enter the submodule repository URL to add"
+        read reAddUrl
+        echo "Enter the directory path for the submodule"
+        read reAddPath
+        git submodule add $reAddUrl $reAddPath
+        git commit -m "Re-added submodule at $reAddPath"
+        echo "Submodule added at $reAddPath."
+
+    - name: Exit the workflow
+      run: echo "Exiting the script."
