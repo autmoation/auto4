@@ -2,7 +2,11 @@ name: Automate Submodule Management
 
 # Define the trigger for this workflow
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
+  workflow_dispatch:  # Allows manual trigger
+:
 
 jobs:
   automate-submodules:
