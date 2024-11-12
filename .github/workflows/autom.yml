@@ -25,8 +25,8 @@ jobs:
 
       - name: Clone repository and add initial submodule
         run: |
-          git clone "https://github.com/user/test4.git"
-          git submodule add "https://github.com/auto-testing-e/test3.git"
+          git clone "https://github.com/user/auto4.git"
+          git submodule add "https://github.com/automation/auto3.git"
           git submodule update --init --recursive
           git add .
           git commit -m "Added submodules"
