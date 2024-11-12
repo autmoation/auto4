@@ -14,10 +14,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up Git
-        run: |
-          git config --global user.name "Jeenareji"
-          git config --global user.email "jeenareji77@example.com"
+      - name: Setup PowerShell
+        uses: actions/setup-powershell@v
 
       - name: Clone repository and add submodule
         run: |
