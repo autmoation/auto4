@@ -6,7 +6,7 @@ Set-Location -Path $repoPath
 Write-Output "Changed directory to $repoPath"
 
 # Ask for the URL of the submodule to add
-$submoduleUrl = Read-Host "Enter the URL of the submodule to add (e.g., 'https://github.com/automsation/auto3.git')"
+$submoduleUrl = Read-Host "Enter the URL of the submodule to add 
 
 # Add the submodule and update
 git submodule add $submoduleUrl
