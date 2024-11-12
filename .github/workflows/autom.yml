@@ -24,7 +24,7 @@ jobs:
     
     - name: Add a submodule
       run: |
-        echo "Enter the URL of the submodule to add (e.g., 'https://github.com/automsation/auto3.git')"
+        echo "Enter the URL of the submodule to add "
         read submoduleUrl
         git submodule add $submoduleUrl
         git submodule update --init --recursive
