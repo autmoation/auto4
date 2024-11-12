@@ -15,7 +15,8 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Setup PowerShell
-        uses: PowerShell/PowerShell@v2
+        uses: actions/setup-powershell@v2
+
 
       - name: Clone repository and add submodule
         run: |
